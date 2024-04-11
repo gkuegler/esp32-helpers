@@ -20,7 +20,8 @@ template <typename T, size_t N> constexpr size_t ARRAY_SIZE(T (&)[N]) {
 extern "C" {
 #endif
 
-uint64_t set_bit(int n) { return (uint64_t)1 << n; }
+uint64_t set_bit(int idx) { return (uint64_t)1 << idx; }
+uint64_t set_bit(int idx, uint64_t src) { return (uint64_t)1 << idx | src; }
 uint32_t u8_to_u16_le(uint8_t in) { return in << 24; }
 
 /*Convert a uint8_t ptr to (4) bytes from little endian to a little endian
