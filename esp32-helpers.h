@@ -16,6 +16,27 @@ template <typename T, size_t N> constexpr size_t ARRAY_SIZE(T (&)[N]) {
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 #endif
 
+// Get bytes at index 0-3
+#ifdef __cplusplus
+template <typename T> consteval unsigned char BYTE_0(T n) {
+  return static_cast<unsigned char>(n & 0x000000FF);
+}
+template <typename T> consteval unsigned char BYTE_1(T n) {
+  return static_cast<unsigned char>((n & 0x0000FF00) >> 8);
+}
+template <typename T> consteval unsigned char BYTE_2(T n) {
+  return static_cast<unsigned char>((tmpInt & 0x00FF0000) >> 16);
+}
+template <typename T> consteval unsigned char BYTE_3(T n) {
+  return static_cast<unsigned char>((tmpInt & 0xFF000000) >> 24);
+}
+#else
+#define BYTE_0(x) (x & 0x000000FF)
+#define BYTE_1(x) ((x & 0x000000FF) >> 8)
+#define BYTE_2(x) ((x & 0x0000FF00) >> 16)
+#define BYTE_3(x) ((x & 0x00000000) >> 24)
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
